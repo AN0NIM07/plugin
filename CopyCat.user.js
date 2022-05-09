@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         COPYCAT
-// @version      0.6.0
+// @version      0.7.0
 // @description  Copy Name in Clipboard to share
 // @namespace    https://github.com/AN0NIM07/plugin
 // @downloadURL  https://github.com/AN0NIM07/plugin/raw/main/CopyCat.user.js
@@ -49,6 +49,7 @@ function init() {
 		try {
 			const response = this.response;
 			const json = JSON.parse(response);
+            //GM_setClipboard(response);
 			if (!json) {
 				console.log(response);
 				alert('Failed to parse response from Wayfarer');
@@ -135,13 +136,13 @@ function init() {
 
 		let text = '';
         let subtitle = '';
-        let locationaddress = '';
         let titleandlocation = '';
+        let locationcord = '';
 		if (candidate.type == 'NEW') {
 			text = candidate.title + SPACING + candidate.description + SPACING + candidate.statement;
             subtitle = candidate.title;
-            locationaddress = candidate.streetAddress;
-            titleandlocation = subtitle + ' ' + locationaddress;
+            locationcord = candidate.lat.toString() + ',' + candidate.lng.toString()
+            titleandlocation = subtitle + ' ' + locationcord;
             GM_setClipboard(titleandlocation);
 		}
 
